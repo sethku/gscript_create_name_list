@@ -53,7 +53,7 @@ function addDataList(data){
     }
   }
 
-//Makes sure all the rows to import are the same length but adding in a blank field.
+//Makes sure all the rows to import are the same length by adding in a blank field.
   for(var i = 0; i < rows.length; i++){
     rows[i][data.length - 1] = '';
   }
