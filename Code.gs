@@ -1,22 +1,9 @@
 //Edit these variables for the correct sheet names you want to use;
 var dataSheetName = 'Data';
 var resultSheetName = 'Results';
+
+//A list of the result columns to use for the sorting function below
 var column = ['A','B','C','D','E','F','G','H','I','J','K','L'];
-
-
-function addNamesToList(name, qty, column){
-  var sheet = SpreadsheetApp.getActiveSpreadsheet();
-  SpreadsheetApp.setActiveSheet(sheet.getSheetByName(resultSheetName));
-  
-  var range = sheet.getRange(1,column);
-  console.log(range.getNumRows());
-  SpreadsheetApp.setActiveRange(range);
-  
-
-  for(var i = 0; i < qty; i++){
-    sheet.appendRow([name]);
-  }
-}
 
 function getNamesAndTickets() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -37,9 +24,8 @@ function getNamesAndTickets() {
     }
   }
 
-  console.log(rows);
+//current range to enter is hardcoded. This could be improved.
   var range = 'A2:M'+(rows.length+1);
-
   enterData(range, rows);
 
   for(var i = 0; i < column.length; i++){
@@ -67,33 +53,17 @@ function addDataList(data){
     }
   }
 
+//Makes sure all the rows to import are the same length but adding in a blank field.
   for(var i = 0; i < rows.length; i++){
     rows[i][data.length - 1] = '';
   }
 
   return rows;
-  /*
-  var rowsLength = rows.length;
-  console.log("rowlen: "+rowsLength);
-
-  if(rows.length > 0){
-    var range = 'A2:M'+(rowsLength+1);
-    console.log(range);
-    sheet.getRange(range).setValues(rows);
-  }
-  /*
- for(var i = 0; i < rows.length; i++){
-    sheet.appendRow(rows[i]);
-  }
-  */
 }
+
 
 function enterData(range, rows){
   var sheet = SpreadsheetApp.getActiveSpreadsheet();
   SpreadsheetApp.setActiveSheet(sheet.getSheetByName(resultSheetName));
-
-  console.log(rows);
-  console.log(range);
-
   sheet.getRange(range).setValues(rows);
 }
